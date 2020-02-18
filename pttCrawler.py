@@ -16,7 +16,7 @@ def getForum(forum, page=0):
     ptthtml = requests.get(url)
     soup = bs4.BeautifulSoup(ptthtml.text, "lxml")
 
-    # forum輸入檢查
+    #  forum輸入檢查
     if(soup.title.text=="404"):
         raise ValueError("PTT has no forum " + forum)
     # 進入18禁論壇檢查
