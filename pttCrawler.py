@@ -1,9 +1,10 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 Created on Sat Feb 15 15:32:43 2020
 
 @author: ASUS
 """
+
 
 import bs4
 import requests
