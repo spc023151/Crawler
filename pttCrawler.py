@@ -10,6 +10,19 @@ import bs4
 import requests
 
 def getForum(forum, page=0):
+
+    """
+    Get ptt forum html code.
+    
+    Parameters
+    ----------
+    forum : string, default None
+        Use given forum name to get the forum's page.
+    page : int, , default 0
+        Number in the URL to get the page of the given forum.
+        If not passed, get the newest page of the given forum.
+    ----------
+    """
     
     url = "https://www.ptt.cc/bbs/" + forum + "/index.html"
     cookies={}
@@ -17,34 +30,79 @@ def getForum(forum, page=0):
     ptthtml = requests.get(url)
     soup = bs4.BeautifulSoup(ptthtml.text, "lxml")
 
-    #  forum輸入檢查
+    #  check the forum name is correct or not
     if(soup.title.text=="404"):
         raise ValueError("PTT has no forum " + forum)
-    # 進入18禁論壇檢查
+    # check if enter the forum which needs over 18 years old 
     if(soup.find("div", "over18-notive")!=-1):
          ptthtml = requests.get(url, cookies={'over18': '1'})
          soup = bs4.BeautifulSoup(ptthtml.text, "lxml")
          cookies = {'over18': '1'}
     
-    # 取得最新頁數的頁面
+    # get the newest forum page number
     newest_Page_href = soup.find("div", "btn-group btn-group-paging").find_all("a")[1]["href"]
     start = newest_Page_href.find("index") + 5
     end = newest_Page_href.find(".html")
     newest_Page_Number = int(soup.find("div", "btn-group btn-group-paging").find_all("a")[1]["href"][start:end]) + 1
 
-    # page輸入檢查
+    # ckeck page number is correct
     if (page>newest_Page_Number):
         raise ValueError("page " + str(page) + " not found")
     elif (page==0):
         page = newest_Page_Number
     
-    # 應對page參數改變網址
+    # according to given page number to modify URL
     url = "https://www.ptt.cc/bbs/" + forum + "/index" +  str(page) + ".html"
     ptthtml = requests.get(url, cookies=cookies)
     
     result = bs4.BeautifulSoup(ptthtml.text, "lxml")
     
     return result
+
+def forum_to_data(soup):
+    data = {"nrec":[], "title":[], "href":[], "author":[], "date":[], "mark":[]}
+    for tag in soup.find("div", "r-list-container action-bar-margin bbs-screen"):
+        if isinstance(tag, bs4.element.Tag):
+            if(tag["class"][0]=="r-ent"):
+                try:
+                    data["nrec"].append(tag.find("div", "nrec").string)
+                except:
+                    data["nrec"].append(None)
+                    
+                try:
+                    data["title"].append(tag.find("a").string)
+                except:
+                    try:
+                        data["title"].append(tag.find("div", "title").string.replace("\t", "").replace("\n", ""))
+                    except:
+                        data["title"].append(None)
+                try:    
+                    data["href"].append(tag.find("a")["href"])
+                except:
+                    data["href"].append(None)
+                    
+                try:
+                    data["author"].append(tag.find("div", "author").string)
+                except:
+                    data["author"].append(None)
+                    
+                try:
+                    data["date"].append(tag.find("div", "date").string.replace(" ", ""))
+                except:
+                    data["date"].append(None)
+                    
+                try:
+                    data["mark"].append(tag.find("div", "mark").string)
+                except:
+                    data["mark"].append(None)
+                    
+            elif(tag["class"][0]=="r-list-sep"):
+                break
+        elif isinstance(tag, bs4.element.NavigableString):
+            pass
+        else:
+            print("none of above")
+    return data
 
 def getArticles(forum):
     
