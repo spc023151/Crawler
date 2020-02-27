@@ -33,7 +33,7 @@ def getForum(forum, page=0):
     #  check the forum name is correct or not
     if(soup.title.text=="404"):
         raise ValueError("PTT has no forum " + forum)
-    # check if enter the forum which needs over 18 years old 
+    # check if the forum needs over 18 years old 
     if(soup.find("div", "over18-notive")!=-1):
          ptthtml = requests.get(url, cookies={'over18': '1'})
          soup = bs4.BeautifulSoup(ptthtml.text, "lxml")
@@ -104,9 +104,44 @@ def forum_to_data(soup):
             print("none of above")
     return data
 
-def getArticles(forum):
+def getArticle(url):
+    # check url format
+    if url.find("https://www.ptt.cc")==-1:
+        url = "https://www.ptt.cc" + url
     
-    ptt_url = "https://www.ptt.cc"
+    ptthtml = requests.get(url)
+    soup = bs4.BeautifulSoup(ptthtml.text, "lxml")
     
+    #  check the article url is correct or not
+    if(soup.title.text=="404"):
+        raise ValueError("can not find article " + url)
+        
+    # check if the forum needs over 18 years old 
+    if(soup.find("div", "over18-notive")!=-1):
+        ptthtml = requests.get(url, cookies={'over18': '1'})
+        soup = bs4.BeautifulSoup(ptthtml.text, "lxml")
     
-    return
+    return soup
+
+def article_to_data(article):
+
+    data = {"author":[], "title":[], "forum":[], "post_time":[], "content":[]}
+
+    main_content = article.find('div', id='main-content')
+    content = main_content.find_all('span')
+
+    try:
+        main_content.find("span", "article-meta-tag").text
+        data["author"].append(content[1].text)
+        data["forum"].append(content[3].text)
+        data["title"].append(content[5].text)
+        data["post_time"].append(content[7].text)
+    except:
+        data["author"].append(None)
+        data["forum"].append(None)
+        data["title"].append(None)
+        data["post_time"].append(None)
+        
+    data["content"].append(main_content.text)
+    
+    return data
