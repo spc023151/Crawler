@@ -24,19 +24,17 @@ pip install requests
 ```python
 from Crawler import pttCrawler
 ```
-返回論壇指定頁數的html網頁  
-pttCrawler.getForum(forum, pages)
+pttCrawler.getForum(forum, pages): 返回論壇指定頁數的html網頁  
 * forum : 論壇名稱
 * pages : 論壇頁數(不給則獲取最新一頁)
 ```python
 html = pttCrawler.getForum("Gossiping")
 ```
-解析html中的資料  
-並將獲取的資料轉為dict型態回傳
+pttCrawler.forum_to_data(html): 解析html中的資料，並將獲取的資料轉為dict型態回傳  
 ```python
 dict = pttCrawler.forum_to_data(html)
 ```
-dict可以直接轉為Pandas型態  
+pd.DataFrame(dict): dict可以直接轉為Pandas型態  
 ```python
 import pandas as pd
 
