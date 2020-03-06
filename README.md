@@ -3,10 +3,10 @@
 開發中Pytohn簡易爬蟲工具  
 將爬蟲變得簡單  
 
-  開發中網站
-* https://shopee.tw/
+開發中網站
+* https://shopee.tw/  
 
-  已開發網站
+已開發網站
 * https://www.ptt.cc/bbs
 
 ## Dependencies
