@@ -1,12 +1,4 @@
-﻿# -*- coding: utf-8 -*-
-"""
-Created on Sat Feb 15 15:32:43 2020
-
-@author: ASUS
-"""
-
-
-import bs4
+﻿import bs4
 import requests
 
 def getForum(forum, page=0):
@@ -103,6 +95,29 @@ def forum_to_data(soup):
         else:
             print("none of above")
     return data
+
+def get_newest_fornum_number(forum):
+    
+    url = "https://www.ptt.cc/bbs/" + forum + "/index.html"
+    
+    ptthtml = requests.get(url)
+    soup = bs4.BeautifulSoup(ptthtml.text, "lxml")
+    
+    #  check the forum name is correct or not
+    if(soup.title.text=="404"):
+        raise ValueError("PTT has no forum " + forum)
+    # check if the forum needs over 18 years old 
+    if(soup.find("div", "over18-notive")!=-1):
+         ptthtml = requests.get(url, cookies={'over18': '1'})
+         soup = bs4.BeautifulSoup(ptthtml.text, "lxml")
+    
+    # get the newest forum page number
+    newest_Page_href = soup.find("div", "btn-group btn-group-paging").find_all("a")[1]["href"]
+    start = newest_Page_href.find("index") + 5
+    end = newest_Page_href.find(".html")
+    newest_Page_Number = int(soup.find("div", "btn-group btn-group-paging").find_all("a")[1]["href"][start:end]) + 1
+    
+    return newest_Page_Number
 
 def getArticle(url):
     # check url format
