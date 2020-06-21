@@ -8,7 +8,7 @@
 
 已開發網站
 * https://www.ptt.cc/bbs
-* https://www.dcard.tw/
+* https://www.dcard.tw
 
 ## Dependencies
 安裝以下套件
