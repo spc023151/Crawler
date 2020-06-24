@@ -15,6 +15,7 @@
 (url = "https://www.newamazing.com.tw/EW/Services/SearchListData.asp")  
 * 若網頁有詳細行程介紹圖片，爬蟲會將圖片抓下存於Images中(不包含詳細文字行程介紹中的圖片)
 * 所有資料以csv檔儲存，國外旅團的出發日及可售空位以旅程編號作為檔名存於同一資料夾中
+* 總共各抓取10頁的國內旅遊資料
 
 臨時資料結構如下圖:
 
