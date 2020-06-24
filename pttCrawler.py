@@ -1,4 +1,4 @@
-﻿import bs4
+import bs4
 import requests
 
 def getForum(forum, page=0):

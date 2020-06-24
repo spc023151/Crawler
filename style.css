@@ -1,0 +1,159 @@
+body {
+    background: #FFAD86;
+}
+
+#one {
+    background-image: url("./image/1.png");
+    position: relative;
+    height: 150px;
+    width: 150px;   
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+}
+
+#two {
+    background-image: url("./image/2.png");
+    position: relative;
+    height: 150px;
+    width: 150px;   
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+}
+
+#three {
+    background-image: url("./image/3.png");
+    position: relative;
+    height: 150px;
+    width: 150px;   
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+}
+
+#four {
+    background-image: url("./image/4.png");
+    position: relative;
+    height: 150px;
+    width: 150px;   
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+}
+
+#five {
+    background-image: url("./image/5.png");
+    position: relative;
+    height: 150px;
+    width: 150px;   
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+}
+
+#six {
+    background-image: url("./image/6.png");
+    position: relative;
+    height: 150px;
+    width: 150px;   
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+}
+
+#seven {
+    background-image: url("./image/7.png");
+    position: relative;
+    height: 150px;
+    width: 150px;   
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+}
+
+#blank {
+    background-image: url("./image/blank.png");
+    position: relative;
+    height: 150px;
+    width: 150px;   
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+}
+
+#swap{
+    height:60px;
+    width:125px;
+}
+
+#noswap{
+    height:60px;
+    width:125px;
+}
+
+#shuffle{
+    height:60px;
+    width:125px;
+}
+
+#finish{
+    height:60px;
+    width:125px;
+}
+
+#Bubble{
+    height:60px;
+    width:125px;
+}
+
+#Shaker{
+    height:60px;
+    width:125px;
+}
+
+#Quick{
+    height:60px;
+    width:125px;
+}
+
+.number{
+    background-color: blue;
+    position: relative;
+    height: 150px;
+    width: 150px;   
+    top: 5px;
+    left: 5px;
+    cursor: pointer;
+}
+
+.container{
+    display: inline-block;
+    height: 160px;
+    width: 160px;
+    margin: 10px;
+    border: 3px blue solid;
+    background-color: white;
+}
+
+.algorithmHold{
+    border: 4px #FFFF33 double;
+}
+
+.hold{
+    border: solid  #FFFF33 4px;
+}
+
+.hovered{
+    background: #f4f4f4;
+    border-style: dashed;
+}
+
+.invisible{
+    display: none;
+}
+
+.center {
+    background-color:#FFAD86;
+    text-align:center;
+}
